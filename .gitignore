@@ -1,0 +1,9 @@
+#Python käännöstiedostot
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+#virtuaaliympäristöt
+env/
+venv/
