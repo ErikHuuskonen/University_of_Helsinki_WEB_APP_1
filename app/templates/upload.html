@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="unique-content">
+    <div class="upload-box">
+        <form class="upload-form" method="POST" action="/" enctype="multipart/form-data">
+            <input id="file-upload" type="file" name="file" accept="video/*">
+            <label for="file-upload">Select mp4 file or drop it here</label>
+            <button type="submit" style="display: none;">!Transform!</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
