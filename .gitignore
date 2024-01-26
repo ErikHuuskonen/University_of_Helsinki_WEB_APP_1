@@ -7,3 +7,7 @@ __pycache__/
 #virtuaaliympäristöt
 env/
 venv/
+
+sovellus/
+*.log
+*.tmp
