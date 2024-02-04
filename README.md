@@ -23,3 +23,67 @@ This project was inspired by my coursework at the University of Helsinki, specif
 While the application currently excels at processing English content, future updates aim to expand language support and possibly include additional features based on user feedback and technological advancements. The goal is to enhance its versatility and accessibility, making it a more comprehensive tool for students, educators, and professionals alike.
 
 Thank you for exploring my project. I look forward to developing it further and seeing the positive impact it can have on your video content analysis and note-taking processes.
+
+# Python Flask Application Setup Guide
+
+This guide will walk you through setting up and running the Flask application from cloning the repository to launching the app.
+
+## Prerequisites
+
+Before you begin, ensure you have the following installed on your system:
+- Python 3
+- pip
+- Virtual environment (venv) package for Python
+
+## 1. Clone the Repository
+
+First, clone the repository to your local machine by running the following command in your terminal:
+
+```
+git clone https://github.com/ErikHuuskonen/University_of_Helsinki_WEB_APP_1
+```
+
+## 3. Install Dependencies
+
+Install the project dependencies by running:
+
+```
+pip install -r requirements.txt
+```
+
+## 4. Database Configuration
+
+Since the SQL file does not include database tables, you will need to create them manually.
+
+### Create the Database Table
+
+Login to your PostgreSQL database and create a table named `userinfo`. Here's an example SQL command to create this table:
+
+```sql
+CREATE TABLE userinfo (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(50),
+    password VARCHAR(50)
+);
+```
+
+## Update Database URI
+Open the app.py file and locate the following line (around line 16):
+
+```python
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql:///yourdatabaseurl"
+Replace "postgresql:///yourdatabaseurl" with your actual database connection URI. For example:
+```
+
+```python
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql:///mydbname"
+```
+
+##5. Run the Flask Application
+Finally, start the Flask application by running:
+
+```
+flask run
+```
+
+This command will start the server on http://127.0.0.1:5000/. Open this URL in your browser to access the Flask application.
