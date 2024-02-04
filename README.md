@@ -79,7 +79,7 @@ Replace "postgresql:///yourdatabaseurl" with your actual database connection URI
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql:///mydbname"
 ```
 
-##5. Run the Flask Application
+### 5. Run the Flask Application
 Finally, start the Flask application by running:
 
 ```
