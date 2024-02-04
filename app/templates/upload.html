@@ -3,11 +3,40 @@
 {% block content %}
 <div class="unique-content">
     <div class="upload-box">
-        <form class="upload-form" method="POST" action="/" enctype="multipart/form-data">
+        <form class="upload-form" method="POST" action="/translating" enctype="multipart/form-data" id="upload-form">
             <input id="file-upload" type="file" name="file" accept="video/*">
             <label for="file-upload">Select mp4 file or drop it here</label>
-            <button type="submit" style="display: none;">!Transform!</button>
+            <button type="submit">!Transform!</button>
         </form>
+        <img id="loading" src="{{ url_for('static', filename='loading.gif') }}" style="display:none"/>
     </div>
+    <div id="transcription-result" style="display:none"></div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#upload-form').on('submit', function(e) {
+            e.preventDefault();
+            $('#loading').show();
+            var formData = new FormData(this);
+            $.ajax({
+                url: '/translating',
+                type: 'POST',
+                data: formData,
+                success: function(data) {
+                    if(data.status === 'done') {
+                        window.location.href = '/text-ready'; // Ohjaa käyttäjä uuteen sivuun
+                    } else {
+                        alert('Error occurred!');
+                    }
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            });
+        });
+    });
+</script>
 {% endblock %}
+

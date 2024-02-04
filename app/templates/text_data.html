@@ -1,5 +1,52 @@
-{% extends 'layout.html'}
+{% extends 'layout.html' %}
 
 {% block content %}
-"Text data on täällä näkyvillä"
+<style>
+    .transcription-content {
+        position: relative;
+    }
+
+    #copy-button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin-right: 20px; /* Lisätään hieman tilaa oikealta reunasta */
+        padding: 5px 10px; /* Säädä padding tarpeen mukaan */
+        background-color: #4CAF50; /* Vihreä taustaväri */
+        color: white; /* Valkoinen teksti */
+        border: none;
+        cursor: pointer;
+    }
+
+    #transcription-text {
+        width: 80%;
+        height: 80vh;
+        background-color: #b2ac05;
+        color: #333;
+        border: 1px solid #ddd;
+        padding: 10px;
+        font-family: Arial, sans-serif;
+        overflow-y: auto;
+        margin-top: 40px; /* Varmistetaan, että tekstikenttä ei mene napin alle */
+    }
+</style>
+
+<div class="transcription-content">
+    <h1>This was said in the video</h1>
+    <button id="copy-button" onclick="kopioiTeksti()">Copy text</button>
+    <textarea id="transcription-text" readonly>
+{{ text }}
+    </textarea>
+</div>
+
+<script>
+    function kopioiTeksti() {
+        var teksti = document.getElementById("transcription-text");
+        teksti.select();
+        teksti.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(teksti.value);
+        alert("Text copied to clipboard!");
+    }
+</script>
 {% endblock %}
+

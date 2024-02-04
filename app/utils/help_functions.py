@@ -1,7 +1,8 @@
 import tempfile
 import os
 import whisper
-import moviepy as mp
+from moviepy.editor import VideoFileClip 
+
 
 class HelpFunctions():
 
@@ -10,9 +11,12 @@ class HelpFunctions():
         with tempfile.NamedTemporaryFile(delete=False, suffix='.mp4') as tmpfile:
             tmpfile.write(video)
             tmp_filename = tmpfile.name
-
+        
+        videoclip = None
+        audioclip = None
+        
         try:
-            videoclip = mp.VideoFileClip(tmp_filename)
+            videoclip = VideoFileClip(tmp_filename)
             audioclip = videoclip.audio
             audioclip_filename = tmp_filename + ".mp3"
             audioclip.write_audiofile(audioclip_filename)

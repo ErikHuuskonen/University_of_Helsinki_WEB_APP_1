@@ -4,10 +4,11 @@ import operator
 import re
 import json
 from sqlalchemy.sql import text
-from flask import Flask, render_template, request, jsonify, session, redirect, flash
+from flask import Flask, render_template, request, jsonify, session, redirect, flash, jsonify
 from flask_sqlalchemy import SQLAlchemy 
 from collections import Counter
 from os import getenv
+import time
 from utils.help_functions import HelpFunctions
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -30,7 +31,9 @@ def index():
 def signup():
     if request.method == 'POST':
         username = request.form.get('username')
+        #ei saa olla SQL injektion
         password = request.form.get('password')
+        #ei saa olla SQL injektion
         confirm_password = request.form.get('confirm_password')
         purpose = request.form.get('purpose')
 
@@ -48,7 +51,6 @@ def signup():
         db.session.execute(text('INSERT INTO userinfo (username, password, purpose) VALUES (:username, :password, :purpose)'),
                            {'username': username, 'password': hashed_password, 'purpose': purpose})
         db.session.commit()
-        flash('Rekisteröityminen onnistui. Kirjaudu sisään.')
         return 'Pääsit kirjautumaan sisään'
 
     return render_template('login.html')
@@ -57,10 +59,10 @@ def signup():
 def login():
     if request.method == 'POST':
         username = request.form.get('username')
+        #EI saa olla SQL inj
         password = request.form.get('password')
-
+        ##EI saa olla SQL inj
         result = db.session.execute(text('SELECT * FROM userinfo WHERE username = :username'), {'username': username})
-        #print("Tässä on result", result)
         user = result.fetchone()
         #print("Tässä on user", user)
         if user is not None:
@@ -80,16 +82,21 @@ def logout():
     #flash('Olet kirjautunut ulos.')
     return 'Olet kirjautunut ulos.'
 
-@app.route('/translating')
+@app.route('/translating', methods=['POST'])
 def translating():
-    if request.method == 'POST':
-        file = request.files['file']
-        if file:
-            video_content = file.read()
-            audioclip = HelpFunctions.irroita_aani(video_content)
-            transcribed_text = HelpFunctions.whisper_f(audioclip)
+    file = request.files.get('file')
+    if file:
+        video_content = file.read()
+        audioclip = HelpFunctions.irroita_aani(video_content)
+        transcribed_text = HelpFunctions.whisper_f(audioclip)
+        
+        # Tallenna transkriptio väliaikaisesti (esim. sessioon)
+        # mahdollisesti tietokantaan
+        session['transcribed_text'] = transcribed_text
+        
+        return jsonify({'status': 'done'})
 
-    return "Translator"
+    return jsonify({'status': 'error'})
 
 @app.route('/info')
 def info():
@@ -103,9 +110,11 @@ def account():
 def help():
     return "Tässä sulle apuva" 
 
-@app.route('/textdata')
-def textdata():
-    return "Text data"
+@app.route('/text-ready')
+def text_ready():
+    transcribed_text = session.get('transcribed_text', '')
+    return render_template('text_data.html', text=transcribed_text)
+
 
 @app.route('/texteditor', methods=['GET', 'POST'])
 def texteditor():
