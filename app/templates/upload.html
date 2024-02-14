@@ -1,12 +1,13 @@
 {% extends 'layout.html' %}
 
 {% block content %}
+
 <div class="unique-content">
     <div class="upload-box">
         <form class="upload-form" method="POST" action="/translating" enctype="multipart/form-data" id="upload-form">
-            <input id="file-upload" type="file" name="file" accept="video/*">
+            <input id="file-upload" type="file" name="file" accept="video/mp4">
             <label for="file-upload">Select mp4 file or drop it here</label>
-            <button type="submit">!Transform!</button>
+            <button type="submit">Translate</button>
         </form>
         <img id="loading" src="{{ url_for('static', filename='loading.gif') }}" style="display:none"/>
     </div>

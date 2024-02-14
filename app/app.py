@@ -5,6 +5,7 @@ from collections import Counter
 from os import getenv
 import time
 from utils.help_functions import HelpFunctions
+from werkzeug.datastructures import FileStorage
 from werkzeug.security import check_password_hash, generate_password_hash
 
 app = Flask(__name__)
@@ -81,12 +82,14 @@ def logout():
 def translating():
     file = request.files.get('file')
     if file:
+        if file.content_type == 'video/mp4':
+            pass
+        else: 
+            return "Tiedosto ei ole mp4 muodossa"
         video_content = file.read()
         audioclip = HelpFunctions.irroita_aani(video_content)
         transcribed_text = HelpFunctions.whisper_f(audioclip)
-        
-        # Tallenna transkriptio väliaikaisesti (esim. sessioon)
-        # mahdollisesti tietokantaan
+
         session['transcribed_text'] = transcribed_text
         
         return jsonify({'status': 'done'})
@@ -109,7 +112,6 @@ def help():
 def text_ready():
     transcribed_text = session.get('transcribed_text', '')
     return render_template('text_data.html', text=transcribed_text)
-
 
 @app.route('/texteditor', methods=['GET', 'POST'])
 def texteditor():

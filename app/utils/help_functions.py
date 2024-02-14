@@ -32,6 +32,4 @@ class HelpFunctions():
         result = model.transcribe(audioclip)
         return result["text"]
     
-    @staticmethod
-    def testi():
-        return "hei"
+    
