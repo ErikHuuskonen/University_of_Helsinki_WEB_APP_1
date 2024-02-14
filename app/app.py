@@ -1,8 +1,3 @@
-import os
-import requests
-import operator
-import re
-import json
 from sqlalchemy.sql import text
 from flask import Flask, render_template, request, jsonify, session, redirect, flash, jsonify
 from flask_sqlalchemy import SQLAlchemy 

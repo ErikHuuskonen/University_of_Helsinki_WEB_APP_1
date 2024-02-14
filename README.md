@@ -63,7 +63,8 @@ Login to your PostgreSQL database and create a table named `userinfo`. Here's an
 CREATE TABLE userinfo (
     id SERIAL PRIMARY KEY,
     username VARCHAR(50),
-    password VARCHAR(50)
+    password VARCHAR(200),
+    purpose VARCHAR(50)
 );
 ```
 
@@ -87,3 +88,4 @@ flask run
 ```
 
 This command will start the server on http://127.0.0.1:5000/. Open this URL in your browser to access the Flask application.
+

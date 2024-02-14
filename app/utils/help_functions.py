@@ -34,4 +34,4 @@ class HelpFunctions():
     
     @staticmethod
     def testi():
-        return "KAKKA"
+        return "hei"
