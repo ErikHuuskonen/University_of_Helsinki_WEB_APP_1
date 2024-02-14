@@ -4,9 +4,11 @@ from flask_sqlalchemy import SQLAlchemy
 from collections import Counter
 from os import getenv
 import time
+from datetime import datetime
 from utils.help_functions import HelpFunctions
 from werkzeug.datastructures import FileStorage
 from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 app.secret_key = getenv('SECRET_KEY')
@@ -83,7 +85,7 @@ def translating():
     file = request.files.get('file')
     if file:
         if file.content_type == 'video/mp4':
-            pass
+            filename = secure_filename(file.filename) ###
         else: 
             return "Tiedosto ei ole mp4 muodossa"
         video_content = file.read()
@@ -91,7 +93,16 @@ def translating():
         transcribed_text = HelpFunctions.whisper_f(audioclip)
 
         session['transcribed_text'] = transcribed_text
+        db.session.execute(text('INSERT INTO content (user_id, text, date_posted, video_name) VALUES (:user_id, :text, :date_posted, :video_name)'), 
+                           {'user_id': session.get('username'), 'text': session['transcribed_text'], 'date_posted': datetime.now(), 'video_name':filename})
+        db.session.commit()
         
+        
+        result = db.session.execute(text('SELECT purpose FROM userinfo WHERE username = :username'), {'username': session.get('username')}).fetchone()
+        purpose = result[0]
+        db.session.execute(text('INSERT INTO data (data_posted, purpose, lenght) VALUES (:data_posted, :purpose, :lenght)'), 
+                           {'data_posted': datetime.now(), 'purpose': purpose, 'lenght': file.content_length })
+        db.session.commit()
         return jsonify({'status': 'done'})
 
     return jsonify({'status': 'error'})
