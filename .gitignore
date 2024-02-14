@@ -11,3 +11,5 @@ venv/
 sovellus/
 *.log
 *.tmp
+
+*.DS_Store
