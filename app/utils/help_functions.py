@@ -27,8 +27,8 @@ class HelpFunctions():
         return audioclip_filename
     
     @staticmethod
-    def whisper_f(audioclip):
-        model = whisper.load_model("base")
+    def whisper_f(audioclip, trans_model:str):
+        model = whisper.load_model(trans_model)
         result = model.transcribe(audioclip)
         return result["text"]
     

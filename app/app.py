@@ -62,7 +62,7 @@ def login():
         ##EI saa olla SQL inj
         result = db.session.execute(text('SELECT * FROM userinfo WHERE username = :username'), {'username': username})
         user = result.fetchone()
-        #print("Tässä on user", user)
+       
         if user is not None:
             if check_password_hash(user[2], password):
                 session['username'] = username
@@ -77,8 +77,7 @@ def login():
 @app.route('/logout')
 def logout():
     session.pop('username', None)
-    #flash('Olet kirjautunut ulos.')
-    return 'Olet kirjautunut ulos.'
+    return redirect('/login')
 
 @app.route('/translating', methods=['POST'])
 def translating():
@@ -90,7 +89,8 @@ def translating():
             return "Tiedosto ei ole mp4 muodossa"
         video_content = file.read()
         audioclip = HelpFunctions.irroita_aani(video_content)
-        transcribed_text = HelpFunctions.whisper_f(audioclip)
+
+        transcribed_text = HelpFunctions.whisper_f(audioclip, trans_model= request.form['size'])
 
         session['transcribed_text'] = transcribed_text
         db.session.execute(text('INSERT INTO content (user_id, text, date_posted, video_name) VALUES (:user_id, :text, :date_posted, :video_name)'), 
@@ -109,24 +109,47 @@ def translating():
 
 @app.route('/info')
 def info():
-    return "Tässä informaatiota käännöksen toiminnasta" 
+    if 'username' in session:
+        # Käyttäjä on kirjautunut sisään
+        return render_template('info.html')
+    else:
+        # Käyttäjä ei ole kirjautunut sisään
+        return redirect('/login')
 
 @app.route('/account')
 def account():
-    return "Tässä on käyttäjän informaatiot" 
+    if 'username' in session:
+        # Käyttäjä on kirjautunut sisään
+        return render_template('account.html')
+    else:
+        # Käyttäjä ei ole kirjautunut sisään
+        return redirect('/login') 
 
 @app.route('/help')
 def help():
-    return "Tässä sulle apuva" 
+    if 'username' in session:
+        # Käyttäjä on kirjautunut sisään
+        return render_template('help.html')
+    else:
+        # Käyttäjä ei ole kirjautunut sisään
+        return redirect('/login') 
 
 @app.route('/text-ready')
 def text_ready():
-    transcribed_text = session.get('transcribed_text', '')
-    return render_template('text_data.html', text=transcribed_text)
-
-@app.route('/texteditor', methods=['GET', 'POST'])
+    if 'username' in session:
+        transcribed_text = session.get('transcribed_text', '')
+        return render_template('text_data.html', text=transcribed_text)
+    else:
+        # Käyttäjä ei ole kirjautunut sisään
+        return redirect('/login')
+    
+@app.route('/textdata', methods=['GET', 'POST'])
 def texteditor():
-    return "tämä on tekstin tarkastelluun tarkoitettu sivu" 
+    if 'username' in session:
+        return render_template('previous_texts.html')
+    else:
+        
+        return redirect('/login')
 
 
 

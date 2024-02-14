@@ -1,5 +1,14 @@
 {% extends 'layout.html' %}
 
+{% block header2 %}
+    <div class="header">
+        <h2 style="margin-bottom: 16px;">Audio within your video is now available in text</h2>
+        <p style="font-size: 14px; margin-top: 0;">
+            The core functionality of this website revolves around processing MP4 video files to transcribe the audio content. It's an ideal solution for users looking to convert lectures, presentations, or any spoken content in videos into written form, making it easier to study, reference, and analyze the material.
+        </p>
+    </div>
+{% endblock %}
+
 {% block content %}
 <style>
     .rounded-btn {
@@ -42,10 +51,21 @@
     }
 </style>
 
-<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
+<div style="display: flex; flex-direction: column; align-items: center; justify-content: flex-start; height: 100vh;">
     {% if session['username'] %}
-        <p>Olet kirjautunut nimellä {{ session['username'] }}</p>
-        <a href="{{ url_for('logout') }}">Kirjaudu ulos</a>
+    {% block auth_links %}
+    <div class="auth-links">
+        {% if session['username'] %}
+            <span>Logged in as {{ session['username'] }}</span>
+            <a href="/logout">Log Out</a>
+        {% else %}
+            <a href="/login">Log In</a>
+            <a href="/signup">Sign Up</a>
+        {% endif %}
+    </div>
+{% endblock %}
+        <p>Your are logged in as {{ session['username'] }}</p>
+        <a href="{{ url_for('logout') }}">Log Out</a>
     {% else %}
     <div>
         <div id="signup-btn" class="rounded-btn" onclick="showSignup()">Signup</div>
