@@ -51,24 +51,35 @@ Install the project dependencies by running:
 pip install -r requirements.txt
 ```
 
-## 4. Database Configuration
+##  4. Using the Schema.sql File for Database Setup
 
-Since the SQL file does not include database tables, you will need to create them manually.
+To initialize your database with the required tables and any initial data, you will need to use the `schema.sql` file provided. This file contains SQL commands to create your database schema.
 
-### Create the Database Table
+### Apply the Schema.sql File
 
-Login to your PostgreSQL database and create a table named `userinfo`. Here's an example SQL command to create this table:
+Before applying the schema, make sure your PostgreSQL database is running and you have created a database that your Flask application will use.
 
-```sql
-CREATE TABLE userinfo (
-    id SERIAL PRIMARY KEY,
-    username VARCHAR(50),
-    password VARCHAR(200),
-    purpose VARCHAR(50)
-);
+1. **Open a terminal or command prompt.**
+2. **Navigate to your project directory** where the `schema.sql` file is located.
+3. **Use the `psql` command to apply the schema to your database.** You will need to replace `<yourdatabase>` with the name of your database:
+
+    ```bash
+    psql -U <yourusername> -d <yourdatabase> -a -f schema.sql
+    ```
+
+    Replace `<yourusername>` with your PostgreSQL user name. If prompted, enter your password for the PostgreSQL user.
+
+This command executes the SQL commands in the `schema.sql` file against your database, creating the necessary tables and inserting any initial data defined in the file.
+
+### Verify the Database Schema
+
+After applying the `schema.sql` file, you can verify that the tables were created successfully by logging into your PostgreSQL database and listing the tables:
+
+```bash
+psql -U <yourusername> -d <yourdatabase>
+\dt
 ```
 
-## Update Database URI
 Open the app.py file and locate the following line (around line 16):
 
 ```python
