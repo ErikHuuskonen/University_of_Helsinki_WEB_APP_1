@@ -146,9 +146,16 @@ def text_ready():
 @app.route('/textdata', methods=['GET', 'POST'])
 def texteditor():
     if 'username' in session:
+        user_texts = db.session.execute(text('SELECT video_name, date_posted, text FROM content WHERE user_id = :username'), {'username': session.get('username')}).fetchall()
+
+        user_data = {}
+        for video_name, date_posted, text_content in user_texts:
+            user_data[video_name] = [date_posted, text_content]
+
+        print(user_data)
+        
         return render_template('previous_texts.html')
     else:
-        
         return redirect('/login')
 
 
