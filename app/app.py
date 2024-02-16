@@ -12,7 +12,12 @@ from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 app.secret_key = getenv('SECRET_KEY')
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql:///erikstandard"
+#For local
+#app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL")
+
+#For deployment
+app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL").replace("://", "ql://", 1)
+
 db = SQLAlchemy(app)
 
 @app.route('/')
@@ -153,7 +158,7 @@ def texteditor():
             user_data[video_name] = [date_posted, text_content]
 
         print(user_data)
-        
+
         return render_template('previous_texts.html')
     else:
         return redirect('/login')
