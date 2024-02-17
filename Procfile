@@ -1,1 +1,2 @@
-gunicorn t_w_o_sovellus.app.app.py:app
+web: gunicorn app.app:app
+
