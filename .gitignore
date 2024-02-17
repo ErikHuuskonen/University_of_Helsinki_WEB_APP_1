@@ -13,3 +13,5 @@ sovellus/
 *.tmp
 
 *.DS_Store
+
+*.env

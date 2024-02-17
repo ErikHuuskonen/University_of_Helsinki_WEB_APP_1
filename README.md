@@ -24,6 +24,24 @@ While the application currently excels at processing English content, future upd
 
 Thank you for exploring my project. I look forward to developing it further and seeing the positive impact it can have on your video content analysis and note-taking processes.
 
+## Project Update: Third Interim Delivery
+Date: February 18th
+We have successfully made significant progress on our application by the third interim delivery. Below is a summary of the updates and our next steps towards the final submission.
+
+## What's New
+New Databases Added: We have integrated two new databases, content and data, into our application. The purpose of these databases is to store users' previous video translations and essential information such as video lengths and names. This feature enhances our application's ability to provide personalized and efficient service to our users.
+
+Deployment via Render: The application is currently being deployed through Render. This step marks a significant milestone as we move from development to production, ensuring that our application is accessible to users in a real-world environment.
+
+Session Verifications: To improve security and user experience, session verifications have been added to each template within the application. This ensures that user sessions are securely managed, protecting both the user data and the integrity of their interactions with our application.
+
+Whisper Translation Model Option: Users now have the option to choose the Whisper translation model for their video translations. This model offers improved translation quality for Finnish language videos, albeit at a slower pace. This feature underscores our commitment to providing versatile and user-centric translation solutions.
+
+## Next Steps
+Finalizing HTML Files: Before the final submission, we will focus on defining the remaining HTML files. This involves designing and implementing the user interface components that are essential for a seamless user experience.
+
+Sequential Translations Feature: We aim to add functionality for sequential translations, allowing users to perform multiple translations consecutively without the need to navigate back to the home page via a link. This enhancement will streamline the user workflow, making the translation process more efficient and user-friendly.
+
 # Python Flask Application Setup Guide
 
 This guide will walk you through setting up and running the Flask application from cloning the repository to launching the app.
@@ -81,6 +99,16 @@ psql -U <yourusername> -d <yourdatabase>
 ```
 
 Open the app.py file and locate the following line (around line 16):
+
+Make sure that for deployment is commented out and you write you own db name to "#For local" section
+
+```python
+#For local
+app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL")
+
+#For deployment
+#app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL").replace("://", "ql://", 1)
+```
 
 ```python
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql:///yourdatabaseurl"
