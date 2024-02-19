@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Video to text{% endblock %}</title>
+    <style>
+        @font-face {
+            font-family: 'MyFirstFont';
+            src: url('/static/DrunkenPixel-CorkDEMO.otf');
+            font-weight: bold;
+        }
+        body {
+            font-family: 'MyFirstFont', sans-serif;
+            background-color: #a6a10d; /* Harmaa tausta */
+            margin: 0;
+            padding: 0;
+            color: #333; /* Tummanharmaa teksti */
+        }
+        .header {
+            background-color: #a6a10d; /* Harmaa tausta */
+            color: #333;
+            padding: 20px;
+            font-size: 1.5em;
+            text-align: center;
+        }
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh; 
+            padding: 20px;
+        }
+        .upload-box {
+            width: 50%;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .upload-form input[type=file] {
+            display: none; 
+        }
+        .upload-form label {
+            display: inline-block;
+            background-color: #1a1953; /* Punainen tausta */
+            color: white;
+            padding: 15px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .upload-form label:hover {
+            background-color: #c0392b; /* punaista hoverefektiin */
+        }
+        .footer {
+            background-color: #f2f2f2;
+            color: #333;
+            text-align: center;
+            padding: 10px;
+            font-size: 0.8em;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+        .sidenav {
+            height: 100%; 
+            width: 0; 
+            position: fixed; 
+            z-index: 1; 
+            top: 0; 
+            right: 0;
+            background-color: #111; 
+            overflow-x: hidden; 
+            transition: 0.5s; 
+            padding-top: 60px; 
+            box-shadow: -2px 0px 5px rgba(0,0,0,0.5); 
+        }
+        
+        /* Sivupalkin linkkien tyylit */
+        .sidenav a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+        
+        /* Linkkien hove  efekti */
+        .sidenav a:hover {
+            color: #f1f1f1;
+        }
+        
+        .hamburger {
+            position: fixed;
+            top: 0px; 
+            right: 36px; 
+            z-index: 3; 
+            cursor: pointer;
+            font-size: 30px; 
+            padding: 8px; 
+        }
+        
+        /* Sign in ja Log in linkkien tyylit */
+        .auth-links {
+            position: fixed;
+            right: 86px; 
+            top: 18px; 
+            z-index: 3;
+        }
+
+        .auth-links a {
+            margin-left: 10px;
+            text-decoration: none;
+            color: #000;
+            font-size: 18px; 
+        }
+    </style>
+</head>
+
+<body>
+    {% block header1 %}
+    <div class="header">
+        Audiodata to text 
+    </div>
+    {% endblock %}
+    
+    <!-- Hamburger ikoni, joka avaa sivupalkin -->
+    <div class="hamburger" onclick="openNav()">&#9776;</div>
+    
+    <!-- Sivupalkki -->
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="/">Converter</a>
+        <a href="/account">My Account</a>
+        <a href="/textdata">Previous text data</a>
+        <a href="/help">Help</a>
+        <a href="/info">Info</a>
+        <a href="/login">Log out</a>
+    </div>
+    
+    <!-- Kirjautumislinkit -->
+    {% block auth_links %}
+    <div class="auth-links">
+        <a href="/login">Log In</a>
+        <a href="/signup">Sign Up</a>
+    </div>
+    {% endblock %}
+
+    {% block footer1 %}
+    <div class="footer">
+        &copy; 2024 Skandinaavinen VideoTeksti
+    </div>
+    {% endblock %}
+    
+    <script>
+        /* Funktiot sivupalkin avaamiseen ja sulkemiseen */
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+    </script>
+
+    {% block header2 %}
+    <div class="header">
+        Audio within your video is now available in text
+    </div>
+    {% endblock %}
+
+    {% block content %}
+    <div class="content">
+        First sign in/ log in, then convert you must
+    </div>
+    {% endblock %}
+
+    {% block footer2 %}
+    <div class="footer">
+        &copy; 2024 mp4 to text converter by Erik Huuskonen
+    </div>
+    {% endblock %}
+</body>
+</html>
+
+
+

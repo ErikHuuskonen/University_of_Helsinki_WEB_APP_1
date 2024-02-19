@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+
+
+{% block auth_links %}
+    <div class="auth-links">
+        {% if session['username'] %}
+            <span>Logged in as {{ session['username'] }}</span>
+            <a href="/logout">Log Out</a>
+        {% else %}
+            <a href="/login">Log In</a>
+            <a href="/signup">Sign Up</a>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block content %}
+
+
+
+
+
+{% endblock %}
+
