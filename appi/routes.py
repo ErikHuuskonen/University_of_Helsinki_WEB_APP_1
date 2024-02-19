@@ -1,25 +1,15 @@
 from sqlalchemy.sql import text
-from flask import Flask, render_template, request, jsonify, session, redirect, flash, jsonify
-from flask_sqlalchemy import SQLAlchemy 
-from collections import Counter
-from os import getenv
-import time
+from flask import render_template, request, jsonify, session, redirect, flash, jsonify
 from datetime import datetime
 from werkzeug.datastructures import FileStorage
 from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
 from appi.utils.help_functions import HelpFunctions
+from flask_sqlalchemy import SQLAlchemy 
 
-app = Flask(__name__)
-app.secret_key = getenv('SECRET_KEY')
+from flask import current_app as app
+from app import db
 
-#For local
-app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL")
-
-#For deployment
-#app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL").replace("://", "ql://", 1)
-
-db = SQLAlchemy(app)
 
 @app.route('/')
 def index():
@@ -163,6 +153,4 @@ def texteditor():
         return render_template('previous_texts.html')
     else:
         return redirect('/login')
-
-
 

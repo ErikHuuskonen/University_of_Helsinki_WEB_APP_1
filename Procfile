@@ -1,2 +1,1 @@
-web: gunicorn appi.app:app
-
+web: gunicorn 'app:create_app()'
