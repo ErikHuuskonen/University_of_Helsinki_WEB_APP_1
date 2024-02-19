@@ -13,5 +13,31 @@
 {% endblock %}
 
 {% block content %}
-Täältä saat infoa siitä miten homma toimii
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whisper Speech Recognition Model</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Whisper Speech Recognition Model</h1>
+    </header>
+    <section>
+        <p>Whisper is a general-purpose speech recognition model trained on a large dataset of diverse audio. It is a versatile multitasking model capable of performing multilingual speech recognition, speech translation, and language identification.</p>
+        <p>A Transformer sequence-to-sequence model is employed, which is trained on various speech processing tasks. These tasks include multilingual speech recognition, speech translation, spoken language identification, and voice activity detection.</p>
+        <p>The model interprets these tasks as a sequence of tokens to be predicted by the decoder. This innovative approach allows a single model to replace many stages of a traditional speech-processing pipeline. The multitask training format utilizes a set of special tokens that serve as task specifiers or classification targets.</p>
+        <h2>Approach</h2>
+        <img src="{{ url_for('static', filename='whisper_info.jpg') }}" alt="Whisper Model Overview">
+        
+        <h2>Diffirent languages</h2>
+        <p></p>
+        <p></p>
+        <img src="{{ url_for('static', filename='languages.jpg') }}" alt="Whisper Model Approach">
+    </section>
+    <footer>
+        <p>For more information on the Whisper model and its applications, visit the official documentation.</p>
+    </footer>
+</body>
+</html>
 {% endblock %}

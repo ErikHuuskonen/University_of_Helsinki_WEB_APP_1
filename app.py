@@ -10,10 +10,10 @@ def create_app():
     app.secret_key = getenv('SECRET_KEY')
 
     #For local
-    #app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL")
+    app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL")
 
     #For deployment
-    app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL").replace("://", "ql://", 1)
+    #app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL").replace("://", "ql://", 1)
 
     db.init_app(app)
 

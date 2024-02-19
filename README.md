@@ -120,11 +120,22 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql:///mydbname"
 ```
 
 ### 5. Run the Flask Application
-Finally, start the Flask application by running:
+Finally, start the Flask application by running following command in working directories root:
 
 ```
 flask run
 ```
 
+
 This command will start the server on http://127.0.0.1:5000/. Open this URL in your browser to access the Flask application.
 
+### 5. Run the Flask Application in web browser
+
+The application is now accessible at:
+
+```
+https://videototext.onrender.com/
+```
+Due to the application operating under a free license, video conversion functionality is not available through the web server. This setup is intended for navigating the website and evaluating/testing functionalities other than video-to-text conversion. To convert your videos into text, please follow the local execution method described earlier in this document.
+
+This revised text provides a clearer and more direct explanation, emphasizing the limitations imposed by the free license but still offering clear guidance on how users can utilize the video-to-text conversion feature locally.

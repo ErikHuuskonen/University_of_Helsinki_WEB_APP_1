@@ -32,7 +32,7 @@ def signup():
         purpose = request.form.get('purpose')
 
         if password != confirm_password:
-            return 'Salasanat eivät täsmää.'
+            return render_template('login.html', 'Salasanat eivät täsmää')
 
         # Tarkista, onko käyttäjänimi jo käytössä
         existing_user = db.session.execute(text('SELECT * FROM userinfo WHERE username = :username'), {'username': username}).fetchone()
