@@ -8,18 +8,16 @@ from datetime import datetime
 from werkzeug.datastructures import FileStorage
 from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
-
-
 from app.utils.help_functions import HelpFunctions
 
 app = Flask(__name__)
 app.secret_key = getenv('SECRET_KEY')
 
 #For local
-#app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL")
+app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL")
 
 #For deployment
-app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL").replace("://", "ql://", 1)
+#app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL").replace("://", "ql://", 1)
 
 db = SQLAlchemy(app)
 
