@@ -137,5 +137,3 @@ The application is now accessible at:
 https://videototext.onrender.com/
 ```
 Due to the application operating under a free license, video conversion functionality is not available through the web server. This setup is intended for navigating the website and evaluating/testing functionalities other than video-to-text conversion. To convert your videos into text, please follow the local execution method described earlier in this document.
-
-This revised text provides a clearer and more direct explanation, emphasizing the limitations imposed by the free license but still offering clear guidance on how users can utilize the video-to-text conversion feature locally.
