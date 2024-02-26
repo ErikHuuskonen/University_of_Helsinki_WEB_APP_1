@@ -32,21 +32,31 @@ def signup():
         purpose = request.form.get('purpose')
 
         if password != confirm_password:
-            return render_template('login.html', 'Salasanat eivät täsmää')
+            return render_template('login.html', message='Salasanat eivät täsmää')
 
         # Tarkista, onko käyttäjänimi jo käytössä
         existing_user = db.session.execute(text('SELECT * FROM userinfo WHERE username = :username'), {'username': username}).fetchone()
         if existing_user:
-            #flash('Käyttäjänimi on jo käytössä.')
-            return 'Käyttäjänimi on jo käytössä.'
-
+            return render_template('login.html', message='Username allready taken')
         # Luo uusi käyttäjä
         hashed_password = generate_password_hash(password)
         db.session.execute(text('INSERT INTO userinfo (username, password, purpose) VALUES (:username, :password, :purpose)'),
                            {'username': username, 'password': hashed_password, 'purpose': purpose})
         db.session.commit()
-        return 'Pääsit kirjautumaan sisään'
-
+        if request.method == 'POST':
+            username = request.form.get('username')
+            #EI saa olla SQL inj
+            password = request.form.get('password')
+            ##EI saa olla SQL inj
+            result = db.session.execute(text('SELECT * FROM userinfo WHERE username = :username'), {'username': username})
+            user = result.fetchone()
+        
+            if user is not None:
+                if check_password_hash(user[2], password):
+                    session['username'] = username
+                    return render_template('upload.html', message = 'You are in!!')
+            return redirect('/')
+    
     return render_template('login.html')
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -62,11 +72,11 @@ def login():
         if user is not None:
             if check_password_hash(user[2], password):
                 session['username'] = username
-                return render_template('upload.html')
+                return render_template('upload.html', message = 'You are in!!')
             else:
-                return 'Väärä salasana.'
+                return render_template('login.html', message = 'Wrong password...')
         else:
-            return 'Väärä käyttäjätunnus tai salasana.'
+            return render_template('login.html', message = 'Wrong username or password...')
 
     return render_template('login.html')
 

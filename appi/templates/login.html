@@ -1,5 +1,9 @@
 {% extends 'layout.html' %}
 
+{% if message %}
+    <p>{{ message }}</p>
+{% endif %}
+
 {% block header2 %}
     <div class="header">
         <h2 style="margin-bottom: 16px;">Audio within your video is now available in text</h2>
@@ -69,6 +73,9 @@
         <a href="{{ url_for('logout') }}">Log Out</a>
     {% else %}
     <div>
+        {% if message %}
+            <p>{{ message }}</p>
+        {% endif %}
         <div id="signup-btn" class="rounded-btn" onclick="showSignup()">Signup</div>
         <div id="login-btn" class="rounded-btn" onclick="showLogin()">Login</div>
     </div>
