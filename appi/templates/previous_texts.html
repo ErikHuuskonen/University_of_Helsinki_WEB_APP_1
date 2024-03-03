@@ -14,10 +14,20 @@
 {% endblock %}
 
 {% block content %}
-
-
-
-
-
+<div class="text-data">
+    <h2>Your Texts</h2>
+    {% if user_data %}
+        {% for video_name, texts in user_data.items() %}
+            <div>
+                <h3>{{ video_name if video_name else "No Video Name" }}</h3>
+                {% for text in texts %}
+                    <p>Date Posted: {{ text.date_posted }}</p>
+                    <p>Text: {{ text.text_content }}</p>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>You have no texts saved.</p>
+    {% endif %}
+</div>
 {% endblock %}
-

@@ -149,9 +149,7 @@ def texteditor():
         for video_name, date_posted, text_content in user_texts:
             user_data[video_name] = [date_posted, text_content]
 
-        print(user_data)
-
-        return render_template('previous_texts.html')
+        return render_template('previous_texts.html', user_data=user_data)
     else:
         return redirect('/login')
 
