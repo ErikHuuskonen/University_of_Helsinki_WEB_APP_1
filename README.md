@@ -18,29 +18,15 @@ The core functionality of this web application revolves around processing MP4 vi
 
 This project was inspired by my coursework at the University of Helsinki, specifically the "Databases and Web Programming" course within the Computer Science curriculum. It represents a practical application of the skills and knowledge acquired through my studies, showcasing my ability to integrate sophisticated AI technology with web development principles to create a functional and user-friendly tool.
 
-## Future Directions
 
-While the application currently excels at processing English content, future updates aim to expand language support and possibly include additional features based on user feedback and technological advancements. The goal is to enhance its versatility and accessibility, making it a more comprehensive tool for students, educators, and professionals alike.
+## Final Overview
+This project is a speech-to-text conversion tool that enables users to transcribe audio content from videos into text. It leverages advanced machine learning models to ensure high accuracy in transcription, even with complex audio inputs such as Finnish language or unclear audio sources.
 
-Thank you for exploring my project. I look forward to developing it further and seeing the positive impact it can have on your video content analysis and note-taking processes.
+# Features
+Model Selection: Users can select from four model sizes – base, small, medium, or large. This selection influences the precision of the transcribed text. The larger the model size chosen, the higher the likelihood of accurately transcribing Finnish or unclear audio into text.
 
-## Project Update: Third Interim Delivery
-Date: February 18th
-We have successfully made significant progress on our application by the third interim delivery. Below is a summary of the updates and our next steps towards the final submission.
-
-## What's New
-New Databases Added: We have integrated two new databases, content and data, into our application. The purpose of these databases is to store users' previous video translations and essential information such as video lengths and names. This feature enhances our application's ability to provide personalized and efficient service to our users.
-
-Deployment via Render: The application is currently being deployed through Render. This step marks a significant milestone as we move from development to production, ensuring that our application is accessible to users in a real-world environment.
-
-Session Verifications: To improve security and user experience, session verifications have been added to each template within the application. This ensures that user sessions are securely managed, protecting both the user data and the integrity of their interactions with our application.
-
-Whisper Translation Model Option: Users now have the option to choose the Whisper translation model for their video translations. This model offers improved translation quality for Finnish language videos, albeit at a slower pace. This feature underscores our commitment to providing versatile and user-centric translation solutions.
-
-## Next Steps
-Finalizing HTML Files: Before the final submission, we will focus on defining the remaining HTML files. This involves designing and implementing the user interface components that are essential for a seamless user experience.
-
-Sequential Translations Feature: We aim to add functionality for sequential translations, allowing users to perform multiple translations consecutively without the need to navigate back to the home page via a link. This enhancement will streamline the user workflow, making the translation process more efficient and user-friendly.
+# Project Status
+The program has been developed within the set timeline and has reached a stage where it is ready for final evaluation. This milestone marks the readiness of the project for a thorough review and assessment of its capabilities in a real-world environment.
 
 # Python Flask Application Setup Guide
 
