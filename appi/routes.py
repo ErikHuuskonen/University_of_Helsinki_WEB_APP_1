@@ -122,15 +122,6 @@ def info():
         # Käyttäjä ei ole kirjautunut sisään
         return redirect('/login')
 
-@app.route('/account')
-def account():
-    if 'username' in session:
-        # Käyttäjä on kirjautunut sisään
-        return render_template('account.html')
-    else:
-        # Käyttäjä ei ole kirjautunut sisään
-        return redirect('/login') 
-
 @app.route('/help')
 def help():
     if 'username' in session:

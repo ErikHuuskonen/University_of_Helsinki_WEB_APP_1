@@ -19,3 +19,19 @@ CREATE TABLE data (
     purpose VARCHAR(100), 
     lenght VARCHAR(100) 
 );
+
+CREATE TABLE user_data (
+    user_id INT NOT NULL,
+    data_id INT NOT NULL,
+    PRIMARY KEY (user_id, data_id),
+    FOREIGN KEY (user_id) REFERENCES userinfo(id),
+    FOREIGN KEY (data_id) REFERENCES data(id)
+);
+
+CREATE TABLE content_data (
+    content_id INT NOT NULL,
+    data_id INT NOT NULL,
+    PRIMARY KEY (content_id, data_id),
+    FOREIGN KEY (content_id) REFERENCES content(id),
+    FOREIGN KEY (data_id) REFERENCES data(id)
+);
